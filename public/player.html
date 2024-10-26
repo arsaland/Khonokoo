@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>صفحه بازیکن</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <!-- Logo at the top -->
+  <div class="logo-container">
+    <img src="/logo.png" alt="Logo" class="logo">
+  </div>
+
+  <!-- Main content -->
+  <div class="main-content">
+    <h1>نام خود را وارد کنید و وارد بازی شوید</h1>
+    <input type="text" id="playerNameInput" placeholder="نام بازیکن">
+    <button id="joinGameButton">ورود به بازی</button>
+    <div id="message"></div>
+    <div id="gameContent"></div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/player.js"></script>
+</body>
+
+</html>

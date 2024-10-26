@@ -1,0 +1,134 @@
+/* General Styles */
+body {
+  font-family: 'CustomFont', Arial, sans-serif;
+  background-color: #1d005c;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Logo Styles */
+.logo-container {
+  position: relative;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #12f6ef;
+  padding: 0;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.logo {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0;
+  width: 150px;
+}
+
+/* Main Content */
+.main-content {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  color: #ffffff;
+  direction: rtl;
+}
+
+/* Button Styles */
+button {
+  font-family: 'CustomFont', Arial, sans-serif;
+}
+
+.center-button {
+  display: inline-block;
+  padding: 15px 30px;
+  font-size: 1.6em;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  margin: 25px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 50px;
+}
+
+.center-button:hover {
+  background-color: #0056b3;
+}
+
+/* Input Styles */
+input[type="text"] {
+  font-family: 'CustomFont', Arial, sans-serif;
+  padding: 10px;
+  font-size: 1em;
+  margin: 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 80%;
+  max-width: 300px;
+}
+
+/* Room Code Styles */
+#roomCode {
+  font-family: 'CustomFont', Arial, sans-serif;
+  font-size: 2em;
+  margin: 20px;
+  color: #ffffff;
+}
+
+/* Game Content */
+#gameContent {
+  margin-top: 20px;
+}
+
+/* Load the custom font */
+@font-face {
+  font-family: 'CustomFont';
+  src: url('/custom-font.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.roomCodeDisplay {
+  direction: rtl;
+  font-size: 3em;
+  color: #fd00ff;
+}
+
+div#playerList {
+  font-size: 3em;
+}
+
+span#timer {
+  font-size: 5rem;
+  color: rgb(255, 255, 0);
+}
+
+#gameContent h2 {
+  font-size: 2.75rem;
+}
+
+button#joinGame {
+  display: inline-block;
+  padding: 9px 10px;
+  font-size: 1.2em;
+  background-color: #12f6ef;
+  color: #5000ff;
+  border: none;
+  margin: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 50px;
+}
+
+#playerList li {
+  color: #12f6ef;
+}

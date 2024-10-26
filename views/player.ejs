@@ -1,0 +1,53 @@
+<!-- views/player.ejs -->
+
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحه بازیکن</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <!-- Logo at the top -->
+    <div class="logo-container">
+        <img src="/logo.png" alt="Logo" class="logo">
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <h1>به بازی خوش آمدید</h1>
+        <div id="gameContent">
+            <% if (!playerName) { %>
+                <!-- Player Name Form -->
+                <form id="playerNameForm">
+                    <label for="playerName">نام شما:</label>
+                    <input type="text" id="playerName" name="playerName" required placeholder="نام خود را وارد کنید">
+                    <button type="submit" class="center-button">ورود به بازی</button>
+                </form>
+                <% } else { %>
+                    <!-- Game Interface -->
+                    <div id="gameInterface">
+                        <!-- Game content will be loaded by player.js -->
+                    </div>
+                    <% } %>
+        </div>
+    </div>
+
+    <!-- Include Socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Include Player Script -->
+    <script src="/js/player.js"></script>
+
+    <% if (playerName) { %>
+        <script>
+            // Pass roomCode and playerName to the client-side script
+            const roomCode = '<%= roomCode %>';
+            const playerName = '<%= playerName %>';
+        </script>
+        <% } %>
+</body>
+
+</html>
