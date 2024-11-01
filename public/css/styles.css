@@ -132,3 +132,6 @@ button#joinGame {
 #playerList li {
   color: #12f6ef;
 }
+
+button#startGame {
+  margin: 25px auto;
