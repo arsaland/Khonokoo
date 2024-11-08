@@ -37,7 +37,7 @@ let rooms = {};
 // Keep track of disconnected hosts for reconnection
 let disconnectedHosts = {};
 
-// Landing page
+// Existing routes
 app.get('/', (req, res) => {
   res.render('index');
 });
@@ -50,6 +50,11 @@ app.get('/host/:roomCode', (req, res) => {
 // Player screen
 app.get('/player/:roomCode', (req, res) => {
   res.render('player', { roomCode: req.params.roomCode, playerName: req.query.name });
+});
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
 });
 
 // Socket.io connection handler

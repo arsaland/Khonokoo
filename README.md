@@ -34,13 +34,13 @@ A localized Farsi/Persian web version of Quiplash party game from Jackbox Games.
 4. Access the application at [http://localhost:3000](http://localhost:3000).
 
 ### How to Play
-#### As a Host (میزبان)
+#### As a Host
 1. Access the host interface.
 2. Create a new game room.
 3. Share the room code with players.
 4. Control the quiz flow and questions.
 
-#### As a Player (بازیکن)
+#### As a Player
 1. Enter the room code.
 2. Join the game session.
 3. Answer questions as they appear.

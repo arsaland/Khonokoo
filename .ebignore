@@ -1,0 +1,20 @@
+# Ignore Git directory and files
+.git
+.gitignore
+
+# Ignore Node.js dependencies
+node_modules
+npm-debug.log
+
+# Ignore Docker-related files
+Dockerfile
+.dockerignore
+
+# Ignore environment variables and other sensitive files
+*.env
+
+# Ignore macOS-specific files
+*.DS_Store
+
+# Ignore Windows-specific system files
+NTUSER.DAT

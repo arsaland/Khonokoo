@@ -1,27 +1,55 @@
-# Dependencies
-/node_modules
-node_modules/
+# Node.js dependencies
 /node_modules/
-
-# Batch files
-*.bat
-start.bat
-push.bat
-
-# Environment
-.env
-.env.local
-.env.*.local
-
-# Debug logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# IDE
-.idea/
-.vscode/
+# Environment variables
+.env
+.env.local
+.env.*.local
 
-# OS
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Build directories
+/build/
+/dist/
+/out/
+.next/
+
+# Temporary files
+/tmp
+/temp
+
+# OS-specific files
 .DS_Store
 Thumbs.db
+
+# IDE and editor configurations
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Docker-related files
+Dockerfile
+docker-compose.yaml
+.dockerignore
+
+# Secrets and sensitive files
+secrets.dev.yaml
+values.dev.yaml
+
+# Git directories
+.git/
+.elasticbeanstalk/
+
+# Miscellaneous
+*.dbmdl
+*.jfm
+*.proj.user
+LICENSE
