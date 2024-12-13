@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const roomCode = pathSegments[pathSegments.length - 1].toUpperCase();
 
                 if (!roomCode) {
-                    alert('کد اتاق معتبر نیس��.');
+                    alert('کد اتاق معتبر نیست.');
                     window.location.href = '/';
                     return;
                 }
@@ -38,45 +38,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Function to initialize the game interface
 function initializeGameInterface(roomCode, playerName) {
+    // Establish a connection to the server using Socket.io
     const socket = io();
-    const lobbyContent = document.getElementById('lobbyContent');
-    const gameplayContent = document.getElementById('gameplayContent');
-    const playerList = document.getElementById('playerList');
 
-    // Join room
-    socket.emit('joinRoom', { roomCode: roomCode, playerName: playerName });
-
-    // Update player list when players join
-    socket.on('playerJoined', (players) => {
-        if (playerList) {
-            playerList.innerHTML = '';
-            for (let playerId in players) {
-                const li = document.createElement('li');
-                li.textContent = players[playerId].name;
-                playerList.appendChild(li);
-            }
-        }
-    });
-
-    // Handle game start
+    // Add these event listeners after socket connection
     socket.on('gameStarted', () => {
-        if (lobbyContent) lobbyContent.style.display = 'none';
-        if (gameplayContent) gameplayContent.style.display = 'block';
-    });
+        // Remove welcome message
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        if (welcomeMessage) {
+            welcomeMessage.style.display = 'none';
+        }
 
-    // Handle question phase
-    socket.on('questionPhase', (data) => {
-        if (gameplayContent) {
-            gameplayContent.style.display = 'block';
-            gameplayContent.innerHTML = `
-                <h2>${data.question}</h2>
-                <input type="text" id="answerInput" placeholder="پاسخ شما">
-                <button id="submitAnswer" class="center-button">ارسال پاسخ</button>
-                <p><span id="timer">${data.time}</span></p>
+        // Update game interface
+        const gameInterface = document.getElementById('gameInterface');
+        if (gameInterface) {
+            gameInterface.innerHTML = `
+                <div id="gameContent">
+                    <h2>در انتظار سوال...</h2>
+                </div>
             `;
-            startTimer(data.time);
         }
     });
+
+    // Emit the joinRoom event to the server with roomCode and playerName
+    socket.emit('joinRoom', { roomCode: roomCode, playerName: playerName });
 
     // Handle connection errors
     socket.on('connect_error', (error) => {
@@ -100,8 +85,33 @@ function initializeGameInterface(roomCode, playerName) {
     // Listen for game phases and handle them accordingly
 
     // 1. Question Phase
+    socket.on('removeWelcome', () => {
+        document.querySelector('.main-content').innerHTML = `
+            <div id="gameContent">
+                <div id="gameInterface">
+                    <h2>در انتظار سوال...</h2>
+                </div>
+            </div>
+        `;
+    });
+
     socket.on('questionPhase', (data) => {
-        displayQuestionPhase(data.question, data.time, socket, roomCode);
+        // Remove welcome message again (as backup)
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        if (welcomeMessage) {
+            welcomeMessage.style.display = 'none';
+        }
+
+        const gameInterface = document.getElementById('gameInterface');
+        if (gameInterface) {
+            gameInterface.innerHTML = `
+                <h2>${data.question}</h2>
+                <input type="text" id="answerInput" placeholder="پاسخ شما">
+                <button id="submitAnswer" class="center-button">ارسال پاسخ</button>
+                <p><span id="timer">${data.time}</span></p>
+            `;
+            startTimer(data.time, 'timer');
+        }
     });
 
     // 2. Voting Phase
@@ -141,6 +151,11 @@ function initializeGameInterface(roomCode, playerName) {
 
 // Function to display the Question Phase
 function displayQuestionPhase(question, time, socket, roomCode) {
+    // Clear the entire gameContent first
+    const gameContent = document.getElementById('gameContent');
+    gameContent.innerHTML = '';
+
+    // Then set up the game interface
     const gameInterface = document.getElementById('gameInterface');
     gameInterface.innerHTML = `
       <h2>${question}</h2>
@@ -158,10 +173,7 @@ function displayQuestionPhase(question, time, socket, roomCode) {
         const answer = answerInput.value.trim();
 
         if (answer !== '') {
-            // Emit the submitAnswer event to the server
             socket.emit('submitAnswer', { roomCode: roomCode, answer: answer });
-
-            // Inform the player that their answer has been submitted
             gameInterface.innerHTML = '<h2>در انتظار بازیکنان دیگر...</h2>';
         } else {
             alert('لطفاً پاسخ خود را وارد کنید.');

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحه اصلی</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <!-- Logo at the top -->
+    <div class="logo-container">
+        <img src="/logo.png" alt="Logo" class="logo">
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <button id="createRoom" class="center-button">اتاق جدید</button>
+        <button id="joinRoom" class="center-button">ورود به اتاق</button>
+
+        <!-- Join Room Form -->
+        <div id="joinForm" style="display: none; margin-top: 20px;">
+            <input type="text" id="roomCodeInput" placeholder="کد ۴ حرفی اتاق" maxlength="4" autocomplete="off" />
+            <input type="text" id="playerNameInput" placeholder="نام شما" />
+            <button id="joinGame" class="center-button">ورود به بازی</button>
+        </div>
+
+        <div id="message"></div>
+    </div>
+
+    <!-- Include Socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Include Client Script -->
+    <script src="/js/client.js"></script>
+
+    <!-- Added Script for Auto-Uppercase and Input Validation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const roomCodeInput = document.getElementById('roomCodeInput');
+            const joinRoomBtn = document.getElementById('joinRoom');
+            const createRoomBtn = document.getElementById('createRoom');
+            const joinForm = document.getElementById('joinForm');
+            const joinGameBtn = document.getElementById('joinGame');
+            const messageDiv = document.getElementById('message');
+
+            // Show join form when 'joinRoom' button is clicked
+            joinRoomBtn.addEventListener('click', () => {
+                joinForm.style.display = 'block';
+                roomCodeInput.focus(); // Auto-focus
+            });
+
+            // Handle Create Room button click
+            createRoomBtn.addEventListener('click', () => {
+                const socket = io();
+                socket.emit('createRoom');
+                socket.on('roomCreated', (roomCode) => {
+                    window.location.href = `/host/${roomCode}`;
+                });
+                socket.on('errorMessage', (message) => {
+                    alert(`خطا: ${message}`);
+                    console.error('Error from server:', message);
+                });
+            });
+
+            // Handle Join Game button click
+            joinGameBtn.addEventListener('click', () => {
+                const roomCode = roomCodeInput.value.trim();
+                const playerName = document.getElementById('playerNameInput').value.trim();
+
+                if (roomCode.length !== 4) {
+                    alert('کد اتاق باید ۴ حرفی باشد.');
+                    return;
+                }
+
+                if (playerName === '') {
+                    alert('لطفاً نام خود را وارد کنید.');
+                    return;
+                }
+
+                window.location.href = `/player/${roomCode}?name=${encodeURIComponent(playerName)}`;
+            });
+
+            // Allow form submission with Enter key
+            joinForm.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    joinGameBtn.click();
+                }
+            });
+
+            if (roomCodeInput) {
+                // Automatically convert input to uppercase and remove non-alphanumerics
+                roomCodeInput.addEventListener('input', function () {
+                    this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

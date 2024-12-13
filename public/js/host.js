@@ -41,10 +41,15 @@ socket.on('playerJoined', (players) => {
 document.getElementById('startGame').addEventListener('click', () => {
     socket.emit('startGame', roomCode);
     document.getElementById('startGame').style.display = 'none';
+    // Hide the player list when game starts
+    document.getElementById('playerList').style.display = 'none';
 });
 
 // Handle game phases
 socket.on('questionPhase', (data) => {
+    // Ensure player list stays hidden during game phases
+    document.getElementById('playerList').style.display = 'none';
+
     document.getElementById('gameContent').innerHTML = `
     <h2>${data.question}</h2>
     <p><span id="timer">${data.time}</span></p>

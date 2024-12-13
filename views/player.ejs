@@ -18,7 +18,6 @@
 
     <!-- Main content -->
     <div class="main-content">
-        <h1>به بازی خوش آمدید</h1>
         <div id="gameContent">
             <% if (!playerName) { %>
                 <!-- Player Name Form -->
@@ -30,7 +29,14 @@
                 <% } else { %>
                     <!-- Game Interface -->
                     <div id="gameInterface">
-                        <!-- Game content will be loaded by player.js -->
+                        <div id="lobbyContent">
+                            <h2>بازیکنان حاضر در لابی:</h2>
+                            <ul id="playerList"></ul>
+                            <p class="waiting-text">در انتظار شروع بازی توسط میزبان...</p>
+                        </div>
+                        <div id="gameplayContent" style="display: none;">
+                            <!-- Game content will be loaded here during gameplay -->
+                        </div>
                     </div>
                     <% } %>
         </div>
