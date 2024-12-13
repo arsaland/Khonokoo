@@ -172,39 +172,35 @@ function displayQuestionPhase(question, time, socket, roomCode) {
 // Function to display the Voting Phase
 function displayVotingPhase(answers, time, socket, roomCode) {
     const gameInterface = document.getElementById('gameInterface');
-    let answersHtml = '<h2>بهترین پاسخ را انتخاب کنید!</h2><ul>';
+    let answersHtml = '<h2 class="voting-title">بهترین پاسخ را انتخاب کنید!</h2><div class="answer-container">';
 
     for (let playerId in answers) {
         // Prevent voting for own answer
         if (playerId !== socket.id) {
             answersHtml += `
-          <li class="answer-box">
-            ${answers[playerId].answer}
-            <button class="voteBtn center-button" data-player-id="${playerId}">رای</button>
-          </li>
-        `;
+                <div class="answer-box">
+                    <span class="answer-text">${answers[playerId].answer}</span>
+                    <button class="vote-button" data-player-id="${playerId}">رای</button>
+                </div>
+            `;
         }
     }
 
-    answersHtml += `
-      </ul>
-      <p<span id="timer">${time}</span></p>
-    `;
-
+    answersHtml += `</div><p><span id="timer">${time}</span></p>`;
     gameInterface.innerHTML = answersHtml;
 
     // Start the countdown timer
     startTimer(time, 'timer');
 
     // Add event listeners for voting buttons
-    const voteButtons = document.querySelectorAll('.voteBtn');
+    const voteButtons = document.querySelectorAll('.vote-button');
     voteButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
             const voteFor = btn.getAttribute('data-player-id');
             socket.emit('submitVote', { roomCode: roomCode, vote: voteFor });
 
-            // Inform the player that their vote has been submitted
-            gameInterface.innerHTML = '<h2>از رای شما متشکریم!</h2>';
+            // Update UI after voting
+            gameInterface.innerHTML = '<h2 class="voting-title">از رای شما متشکریم!</h2>';
         });
     });
 }

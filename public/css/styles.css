@@ -161,3 +161,120 @@ button#startGame {
   font-size: 2em;
   margin-bottom: 20px;
 }
+
+.answer-container {
+  margin: 20px 0;
+  padding: 20px;
+}
+
+.answer-box {
+  background-color: white;
+  color: black;
+  padding: 15px 20px;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2em;
+}
+
+.answer-text {
+  flex-grow: 1;
+  margin-right: 15px;
+}
+
+.vote-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.vote-button:hover {
+  background-color: #45a049;
+}
+
+.voting-title {
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.8em;
+}
+
+.results-container {
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+.results-title {
+  color: #fd00ff;
+  font-size: 3.5rem;
+  text-align: center;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.result-item {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.result-item:hover {
+  transform: translateY(-5px);
+}
+
+.player-name {
+  color: #5000ff;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.player-answer {
+  color: #000000;
+  font-size: 2rem;
+  margin: 15px 0;
+  padding: 10px;
+  background: rgba(18, 246, 239, 0.1);
+  border-radius: 8px;
+}
+
+.vote-count {
+  color: #fd00ff;
+  font-size: 2.2rem;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* Add this near the other @font-face declarations */
+@font-face {
+  font-family: 'HamidehSaeian';
+  src: url('/fonts/hamidehsaeian.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Update the answer text styles */
+.answer-text,
+.player-answer {
+  font-family: 'HamidehSaeian', Arial, sans-serif;
+  flex-grow: 1;
+  margin-right: 15px;
+  font-size: 2.5rem;
+  /* Made it bigger to showcase the font better */
+}

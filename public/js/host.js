@@ -58,22 +58,36 @@ socket.on('questionPhase', (data) => {
 });
 
 socket.on('votingPhase', (data) => {
-    let answersHtml = '<h2>بهترین پاسخ را انتخاب کنید!</h2><ul>';
+    let answersHtml = '<h2 class="voting-title">بهترین پاسخ را انتخاب کنید!</h2><div class="answer-container">';
     for (let playerId in data.answers) {
-        answersHtml += `<li class="answer-box">${data.answers[playerId].answer}</li>`;
+        answersHtml += `
+            <div class="answer-box">
+                <span class="answer-text">${data.answers[playerId].answer}</span>
+            </div>
+        `;
     }
-    answersHtml += '</ul><p><span id="timer">' + data.time + '</span></p>';
+    answersHtml += `</div><p><span id="timer">${data.time}</span></p>`;
     document.getElementById('gameContent').innerHTML = answersHtml;
     startTimer(data.time);
 });
 
 // Handle results phase
 socket.on('resultsPhase', (data) => {
-    let resultsHtml = '<h2>نتایج</h2><ul>';
+    let resultsHtml = `
+        <div class="results-container">
+            <h2 class="results-title">نتایج این دور</h2>
+            <div class="results-list">`;
+
     data.results.forEach(result => {
-        resultsHtml += `<li>${result.playerName}: "${result.answer}" - ${result.votes} رای</li>`;
+        resultsHtml += `
+            <div class="result-item">
+                <div class="player-name">${result.playerName}</div>
+                <div class="player-answer">"${result.answer}"</div>
+                <div class="vote-count">${result.votes} رای</div>
+            </div>`;
     });
-    resultsHtml += '</ul>';
+
+    resultsHtml += `</div></div>`;
     document.getElementById('gameContent').innerHTML = resultsHtml;
 });
 
