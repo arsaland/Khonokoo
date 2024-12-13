@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const roomCode = pathSegments[pathSegments.length - 1].toUpperCase();
 
                 if (!roomCode) {
-                    alert('کد اتاق معتبر نیس��.');
+                    alert('کد اتاق معتبر نیست.');
                     window.location.href = '/';
                     return;
                 }
@@ -208,13 +208,21 @@ function displayVotingPhase(answers, time, socket, roomCode) {
 // Function to display the Results Phase
 function displayResultsPhase(results) {
     const gameInterface = document.getElementById('gameInterface');
-    let resultsHtml = '<h2>نتایج</h2><ul>';
+    let resultsHtml = `
+        <div class="results-container">
+            <h2 class="results-title">نتایج این دور</h2>
+            <div class="results-list">`;
 
     results.forEach(result => {
-        resultsHtml += `<li>${result.playerName}: "${result.answer}" - ${result.votes} رای</li>`;
+        resultsHtml += `
+            <div class="result-item">
+                <div class="player-name">${result.playerName}</div>
+                <div class="player-answer">"${result.answer}"</div>
+                <div class="vote-count">${result.votes} رای</div>
+            </div>`;
     });
 
-    resultsHtml += '</ul>';
+    resultsHtml += `</div></div>`;
     gameInterface.innerHTML = resultsHtml;
 }
 
