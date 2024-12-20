@@ -4,7 +4,14 @@
   "description": "A Quiplash-like multiplayer game.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "docker:dev": "docker compose -f docker-compose.dev.yml up",
+    "docker:dev:build": "docker compose -f docker-compose.dev.yml up --build",
+    "docker:dev:down": "docker compose -f docker-compose.dev.yml down",
+    "docker:prod": "docker compose up",
+    "docker:prod:build": "docker compose up --build",
+    "docker:prod:down": "docker compose down"
   },
   "dependencies": {
     "ejs": "^3.1.10",
