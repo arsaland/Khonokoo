@@ -2,7 +2,8 @@
     "AWSEBDockerrunVersion": "1",
     "Image": {
         "Name": "khonokoo",
-        "Update": "true"
+        "Update": "true",
+        "Tag": "latest"
     },
     "Ports": [
         {
@@ -16,5 +17,22 @@
             "ContainerDirectory": "/usr/src/app/questions"
         }
     ],
-    "Logging": "/var/log/nginx"
+    "Logging": "/var/log/nginx",
+    "Environment": [
+        {
+            "Name": "NODE_ENV",
+            "Value": "production"
+        },
+        {
+            "Name": "PORT",
+            "Value": "8081"
+        }
+    ],
+    "HealthCheck": {
+        "Command": "wget -q --spider http://localhost:8081/health || exit 1",
+        "Interval": "30",
+        "Timeout": "5",
+        "Retries": "3",
+        "StartPeriod": "60"
+    }
 }

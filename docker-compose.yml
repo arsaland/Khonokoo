@@ -6,17 +6,18 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8081:8081"
+      - "80:8081"
     environment:
       - PORT=8081
-      - NODE_ENV=${NODE_ENV:-development}
+      - NODE_ENV=${NODE_ENV:-production}
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
       - ./questions.json:/usr/src/app/questions.json
     healthcheck:
-      test: [ "CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8081/health" ]
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8081/health"]
       interval: 30s
-      timeout: 10s
+      timeout: 5s
       retries: 3
-    command: sh -c "if [ \"$$NODE_ENV\" = \"production\" ]; then npm start; else npm run dev; fi"
+      start_period: 60s
+    command: npm start
